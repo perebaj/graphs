@@ -27,7 +27,13 @@ struct grafo
     int         numVertices; 
     int          numArestas; 
 };
-
+/*
+@BRIEF:     INICIALIZA O GRAFO, COM A QNT DE ARESTAS E VÉRTICES Q ELE POSSUI. 
+ALOCA MEMÓRIA PARA LISTA DE ADJACÊNCIA, LISTA ENCADEADA ASSOCIADA COM CADA VÉRTICE DO GRAFO
+@PARAM  {int numVertices}   NÚMERO DE VÉRTICES DO GRAFO;
+@PARAM   {int numArestas}    NÚMERO DE ARESTAS DO GRAFO;
+@return     Retorna o grafo com as informaçoes alocadas;
+*/
 Grafo *inicializaGrafo(int numVertices, int numArestas)
 {
     Grafo *grafo            =                     new Grafo;
@@ -40,7 +46,13 @@ Grafo *inicializaGrafo(int numVertices, int numArestas)
 
     return grafo;
 }
-
+/*
+@BRIF   INSERE A ARESTA, LIGANDO O PONTO INICIAL COM O FINAL, COM O SEU RESPECTIVO PESO
+@PARAM   {Grafo *grafo}        estrutura do grafo
+@PARAM  {int startEdge}          Inicio da aresta
+@param    {int endEdge}             Fim da aresta
+@param  {int weight}        Peso entre as arestas
+*/
 void insertAresta(Grafo *grafo, int startEdge, int endEdge, int weight)
 {
     Vertice *newVertice;
@@ -50,7 +62,11 @@ void insertAresta(Grafo *grafo, int startEdge, int endEdge, int weight)
     newVertice->prox        =  grafo->adj[startEdge];
     grafo->adj[startEdge]   =             newVertice;
 }
-
+/*
+@brief: Criar o grafo passando como parâmetros a estrutura que o representa e um estrutura de vetor de vetores que represetam todas as arestas do grafo;
+@param:                          {Grafo *grafo}                                   Estrutura que representa o grafo;
+@param: {std::vector<std::vector<int>> arestas} Vetor de vetores que armazeram as informações de todas as arestas;
+*/
 void criarGrafo(Grafo *grafo, std::vector<std::vector<int>> arestas)
 {
     for(int iterator = 0; iterator < grafo->numArestas; iterator++){
@@ -61,7 +77,9 @@ void criarGrafo(Grafo *grafo, std::vector<std::vector<int>> arestas)
         insertAresta(grafo, startEdge, endEdge, weight);
     }
 }
-
+/*
+@brief: Printa o grafo no com as relações de cada vértice em ordem crescente || vertice: |relação, peso_da_relação| ||
+*/
 void printGrafo(Grafo *grafo)
 {
     Vertice *vertice;
@@ -74,6 +92,12 @@ void printGrafo(Grafo *grafo)
     std::cout << std::endl;
 }
 
+/*
+@Brief: carrega os dados do arquivo na memória
+@param:   {char *fileName}                                   nome do arquivo;
+@param: {Arestas *arestas}  Estrutura que armazena todas as arestas do grafo;
+@param:     {Grafo *grafo}                  Estrutura que representa o grafo;   
+*/
 void readData(char *fileName, Arestas *arestas, Grafo *grafo)
 { 
     FILE *entrada = fopen(fileName, "r");
@@ -94,6 +118,13 @@ void readData(char *fileName, Arestas *arestas, Grafo *grafo)
     }
 }
 
+/*
+@Brief: Algoritmo de Dijsktra que encontra o menor caminho de origem até destino no grafo;
+@param:       {int origem}  Origem da pesquisa no grafo
+@param:      {int destino}  Destino /Objetivo
+@param:     {Grafo *grafo}  
+@param: {Vertice *vertice}
+*/
 int Dijskstra(int origem, int destino, Grafo *grafo, Vertice *vertice){
     int distancia[MAX];
     int processado[MAX];
