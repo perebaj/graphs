@@ -94,14 +94,6 @@ void readData(char *fileName, Arestas *arestas, Grafo *grafo)
     }
 }
 
-int sizeDe(Vertice *vertice){
-    int count = 0;
-    for(int iterator = 0; vertice != nullptr; vertice = vertice->prox)
-        count ++;
-    
-    return count;
-}
-
 int Dijskstra(int origem, int destino, Grafo *grafo, Vertice *vertice){
     int distancia[MAX];
     int processado[MAX];
@@ -116,7 +108,7 @@ int Dijskstra(int origem, int destino, Grafo *grafo, Vertice *vertice){
 
     while(true){
         int davez = -1;
-        int menor = INFINITO;
+        // int menor = INFINITO;
 
         while(!fila.empty()){
             int atual = fila.top().second;
@@ -149,8 +141,6 @@ int Dijskstra(int origem, int destino, Grafo *grafo, Vertice *vertice){
     return distancia[destino];
 
 }
-
-
 
 int main()
 {
